@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+}
+
+.elect1 {
+  transition: width 0.3s ease-out;
+  background-Image: url('./Assets/elect1.jpg')
+}
+
+.elect2 {
+  background-Image: url('./Assets/elect2.jpeg');
+  transition: width 0.3s ease-out;
+  flex-basis: 1;
+
+
+}
+
+.l1 {
+  transition: width 0.3s ease-out;
+}
+
+
+
+
+.elect1:hover {
+  width: 55%;
+}
+
+.elect1:hover>.l1 {
+  width: 20rem;
+}
+
+
+
+
+
+/* .elect2:hover+.elect1 {
+  width: 55%;
+} */
+
+.elect2:hover {
+  flex-grow: 2;
+}
+
+.sun:hover>div.me {
+  transform: scale3d(1.2, 1.2, 1);
+}
+
+.banner {
+  animation: moveBanner 10s linear infinite;
+}
+
+@keyframes moveBanner {
+  0% {
+    transform: translateX(100%);
+    /* Start position, fully off-screen to the right */
+  }
+
+  100% {
+    transform: translateX(-100%);
+    /* End position, fully off-screen to the left */
+  }
+}
+
+
+@keyframes rotateAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+
+.elect:hover code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
