@@ -12,6 +12,7 @@ import TextLogo from './component/text';
 function App() {
   
   const myRef= useRef()
+  const tileRef= useRef()
   const easyRef= useRef()
   const customRef= useRef()
   const [xy,setxy] = useState(null)
@@ -20,7 +21,9 @@ function App() {
   const numberOfSections = 8
   const [currentSection, setCurrentSection] = useState(0);
   const [isScrolling, setIsScrolling] = useState(false);
+  const [slide, setSlide] = useState(0)
   const scrollTimeout = useRef(null);
+
 
  
 
@@ -153,7 +156,7 @@ function App() {
   
   if (isAtEndOfSections) {
     // Allow natural scrolling by NOT calling preventDefault()
-    console.log('e don reach end')
+    // console.log('e don reach end')
     return; 
   }
     
@@ -221,6 +224,9 @@ function App() {
   }
   };
 
+ 
+  
+
   // if(current)
   
 
@@ -254,7 +260,7 @@ function App() {
     circleElement.setAttribute('fill', 'orange');
 
   
-   svgElement.style.animation = 'rotateAnimation 1s ease';
+   svgElement.style.animation = 'rotateAnimation 1s ease .3s';
 
     pathElements.forEach(path => {
       
@@ -327,6 +333,89 @@ function App() {
     setMaskPosition({ x, y });
   };
 
+
+  
+
+  useEffect(() => {
+
+    let tile = tileRef.current
+
+    if(tileRef.current){
+      tile.style.transform = `translateX(${slide}rem)`
+      tile.style.transition = 'transform 0.2s ease-out '
+    }
+
+    if(tileRef.current){
+      let tile = tileRef.current
+      console.log( tile.getBoundingClientRect().x,'left')
+      console.log( tile.getBoundingClientRect().right,'right')
+      console.log( tile.getBoundingClientRect().width,'width')
+    }
+
+   
+   
+
+      
+  }, [slide])
+
+
+ 
+  
+  
+
+
+ 
+
+  const onMoveTile = (value)=>{
+     
+    let tile = tileRef.current
+
+    if(!tile)return
+
+   
+
+      let position;
+     
+
+        console.log(value,'direction')
+      if (value == 'right') {
+       let xim =  tile.getBoundingClientRect().x
+       let yim = tile.getBoundingClientRect().right 
+       let width = tile.getBoundingClientRect().width - 6
+       
+        if(window.innerWidth + Math.abs(xim) < width   ){
+          console.log(window.innerWidth + Math.abs(xim) < width , 'check am')
+          console.log(window.innerWidth, 'innerwidth')
+          console.log(xim, 'x')
+          console.log(width, 'width')
+          position = slide - 29
+          setSlide(position)
+
+        }else{
+          return
+        }
+      }
+        
+      
+      if (value == 'left') {
+
+        if(tile.getBoundingClientRect().x < 0){
+          position = slide + 29
+          setSlide(position)
+  
+        }else{
+          return
+        }
+      }
+      // && tile.getBoundingClientRect().right + Math.abs(tile.getBoundingClientRect().x) < tile.getBoundingClientRect().width
+      
+      
+    
+
+      
+
+  
+  }
   
 
 
@@ -386,7 +475,7 @@ function App() {
                 <div onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave} className=" p-8 bg-white h-[18rem] w-[14rem] flex flex-col items-center justify-between">
                   <div className="mt-6">
-                  <Sun ref={myRef} className='me' w={42} h={42} />
+                  <Sun ref={myRef} w={42} h={42} />
                   </div>
               
                   <p className="text-lg text-center ">Exceptional Solar and Battery Performance</p>
@@ -577,17 +666,17 @@ function App() {
 
         <section ref={(el) => (sectionsRef.current[7] = el)} className='sec w-full h-[100vh] bg-green-50 py-[5rem] '>
           
-            <div className=' flex justify-between  w-[80%] items-center  '>
+            <div className=' flex justify-between  w-[80%] items-end  '>
             <div className='px-[10rem] text-[3rem] '>
               <p className='w-[30rem]'>Transform Your Living with Solar Power</p>
             </div>
-            <div className='w-[5rem] '>
-              <button className=" w-14 h-14 rounded-full border-4">ar</button>
-              <button className=" w-14 h-14 rounded-full border-4">ar</button>
+            <div  className='w-[7rem] flex justify-between'>
+              <button onClick={()=>onMoveTile('left')} className=" w-12 h-12 rounded-full border-4">ar</button>
+              <button onClick={()=>onMoveTile('right')} className=" w-12 h-12 rounded-full border-4">ar</button>
             </div>
             </div>
-            <div className='overflow-x-scroll mt-10 transform'>
-            <div className='flex w-[180rem] h-[29rem] border justify-between'>
+            <div  className='overflow-x-scroll mt-10 transform'>
+            <div ref={tileRef}  className='flex w-[180rem] h-[29rem] border justify-between px-3 py-4 items-center'>
               <div>
               <div style={{backgroundImage: "url('one.png')"}} className='w-[25rem] h-[25rem] bg-no-repeat bg-cover '></div>
               <p>
