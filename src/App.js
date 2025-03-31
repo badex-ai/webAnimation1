@@ -7,13 +7,20 @@ import { Link } from "react-router" ;
 import QuoteForm from "./component/form"
 import { useRef,useEffect, useState } from 'react';
 import TextLogo from './component/text';
-
+import Star from './Assets/star'
+import Ribbon from './Assets/ribbon';
+import Shield from './Assets/shiled';
+import Payment from './Assets/payment';
+import RightArr from './Assets/right-arrow';
+import LeftArr from './Assets/left-arrow';
 
 function App() {
   
   const myRef= useRef()
   const tileRef= useRef()
   const easyRef= useRef()
+  const btn1 = useRef()
+  const btn2 = useRef()
   const customRef= useRef()
   const [xy,setxy] = useState(null)
   const sectionsRef = useRef([]);
@@ -23,6 +30,7 @@ function App() {
   const [isScrolling, setIsScrolling] = useState(false);
   const [slide, setSlide] = useState(0)
   const scrollTimeout = useRef(null);
+  const [xPosition, setXPosition] = useState(0);
 
 
  
@@ -156,7 +164,7 @@ function App() {
   
   if (isAtEndOfSections) {
     // Allow natural scrolling by NOT calling preventDefault()
-    // console.log('e don reach end')
+    
     return; 
   }
     
@@ -337,8 +345,9 @@ function App() {
   
 
   useEffect(() => {
-
     let tile = tileRef.current
+
+ 
 
     if(tileRef.current){
       tile.style.transform = `translateX(${slide}rem)`
@@ -346,17 +355,62 @@ function App() {
     }
 
     if(tileRef.current){
-      let tile = tileRef.current
-      console.log( tile.getBoundingClientRect().x,'left')
-      console.log( tile.getBoundingClientRect().right,'right')
-      console.log( tile.getBoundingClientRect().width,'width')
+      
+
+
+    //   let xim =  tile.getBoundingClientRect().x
+    //      let yim = tile.getBoundingClientRect().right 
+    //      let width = tile.getBoundingClientRect().width - 6
+  
+  
+      console.log(tile.getBoundingClientRect().x, 'value of x' )
+      // if(tile.getBoundingClientRect().x === 0){
+      //   btn1.current.classList.add('border-red-500');
+      //   btn2.current.classList.remove('border-red-500');
+      //   console.log('left is' , true)
+       
+      // }
+  
+
+      // console.log(window.innerWidth + Math.abs(xim), 'value of addition' )
+      // if (window.innerWidth + Math.abs(xim) === width) {
+       
+  
+      //   btn2.current.classList.add('border-red-500');
+      //   btn1.current.classList.remove('border-red-500');
+      //   console.log('right is' , true)
+  
+      // }
+    
     }
+
+    // console.log(slide, value)
 
    
    
 
       
   }, [slide])
+
+  useEffect(() => {
+
+    let tile = tileRef.current
+      
+         let width = tile.getBoundingClientRect().width - 6
+    if(xPosition===0){
+        btn1.current.classList.add('border-red-200');
+        btn2.current.classList.remove('border-red-200');
+    }
+
+    if (window.innerWidth + Math.abs(xPosition) === width) {
+        btn2.current.classList.add('border-gray-200');
+        btn1.current.classList.remove('border-gray-200');
+    }
+  }, [xPosition])
+  
+
+
+  
 
 
  
@@ -377,19 +431,19 @@ function App() {
       let position;
      
 
-        console.log(value,'direction')
       if (value == 'right') {
        let xim =  tile.getBoundingClientRect().x
        let yim = tile.getBoundingClientRect().right 
        let width = tile.getBoundingClientRect().width - 6
        
         if(window.innerWidth + Math.abs(xim) < width   ){
-          console.log(window.innerWidth + Math.abs(xim) < width , 'check am')
-          console.log(window.innerWidth, 'innerwidth')
-          console.log(xim, 'x')
-          console.log(width, 'width')
+         
           position = slide - 29
           setSlide(position)
+          setXPosition(xPosition - 464)
+
+      // console.log(tile.getBoundingClientRect().x, 'value of x after clicking right' )
+
 
         }else{
           return
@@ -402,6 +456,12 @@ function App() {
         if(tile.getBoundingClientRect().x < 0){
           position = slide + 29
           setSlide(position)
+          setXPosition(xPosition + 464)
+
+
+      // console.log(tile.getBoundingClientRect().x, 'value of x after clicking right' )
+
+
   
         }else{
           return
@@ -513,7 +573,7 @@ function App() {
           <div  className='w-[50%] elect2 bg-no-repeat bg-right bg-cover p-10'>
             <div className='text-2xl text-white '> solar for your buisness</div>
             <div className='bg-white items-center justify-between flex rounded-full w-[15rem] l2 h-10 px-8 mt-5'>
-            <div>Comercial</div>
+            <div>Commercial</div>
               <div>ar</div>
             </div>
           
@@ -533,7 +593,7 @@ function App() {
           </p>
           <div className='textrise mt-[1rem] w-[15rem] h-[4rem] px-8 border rounded-full justify-between flex items-center'>
             <div>Get a Quote</div>
-           <div>ar</div>
+           <div><RightArr/></div>
             </div>
         </section>
 
@@ -552,19 +612,19 @@ function App() {
 
             <ul>
               <li className='hp flex mt-2'>
-                <div>r</div>
+                <div><Ribbon/></div>
                 <p className='ml-4'>
                   Best-in-class solar panels and battery Storage
                 </p>
               </li>
               <li className='hp flex mt-2'>
-                <div>r</div>
+                <div><Shield/></div>
                 <p className='ml-4' >
                   25-year equipment guarantee
                 </p>
               </li>
               <li className='hp flex mt-2'>
-                <div>r</div>
+                <div><Payment/></div>
                 <p className='ml-4'>
                   Predictable montly payments with locked-in rates
                 </p>
@@ -577,7 +637,7 @@ function App() {
             <div  className='mt-[5rem] w-[15rem] h-[3rem] px-8 border rounded-full justify-between flex items-center'>
               
               <p>Get a Quote</p>
-              <div>ar</div>
+              <div><RightArr/></div>
             </div>
           </div>
           <div onMouseMove={(e)=>moveBg(e)} onMouseLeave={()=>resetBg()} ref={easyRef} style={{backgroundImage: "url('/cell.png')"}} className='w-[50%] h-[100vh] bg-no-repeat bg-cover cell'>
@@ -593,11 +653,11 @@ function App() {
             
             <div className='w-[80%]'>
             <ul className='flex w-10rem'>
-            <li>ar</li>
-            <li>ar</li>
-            <li>ar</li>
-            <li>ar</li>
-            <li>ar</li>
+            <li><Star/></li>
+            <li><Star/></li>
+            <li><Star/></li>
+            <li><Star/></li>
+            <li><Star/></li>
             </ul>
             <div className='text-4xl mt-8 hp'>
               it's convenient, we don't have to worry about it. SunPulse monitor it for us. if anythig happens they will come out and fix it so we like that part.
@@ -671,8 +731,8 @@ function App() {
               <p className='w-[30rem]'>Transform Your Living with Solar Power</p>
             </div>
             <div  className='w-[7rem] flex justify-between'>
-              <button onClick={()=>onMoveTile('left')} className=" w-12 h-12 rounded-full border-4">ar</button>
-              <button onClick={()=>onMoveTile('right')} className=" w-12 h-12 rounded-full border-4">ar</button>
+              <button ref={btn1} onClick={()=>onMoveTile('left')} className=" w-12 h-12 rounded-full border-black border border-2 flex items-center justify-center"><LeftArr/></button>
+              <button ref={btn2} onClick={()=>onMoveTile('right')} className=" w-12 h-12 rounded-full border-black border  border-2 flex items-center justify-center"><RightArr/></button>
             </div>
             </div>
             <div  className='overflow-x-scroll mt-10 transform'>
