@@ -13,6 +13,7 @@ import Shield from './Assets/shiled';
 import Payment from './Assets/payment';
 import RightArr from './Assets/right-arrow';
 import LeftArr from './Assets/left-arrow';
+import Dropdown from './component/dropDown';
 
 function App() {
   
@@ -21,6 +22,7 @@ function App() {
   const easyRef= useRef()
   const btn1 = useRef()
   const btn2 = useRef()
+  const listItemRefs = useRef([])
   const customRef= useRef()
   const [xy,setxy] = useState(null)
   const sectionsRef = useRef([]);
@@ -363,7 +365,6 @@ function App() {
     //      let width = tile.getBoundingClientRect().width - 6
   
   
-      console.log(tile.getBoundingClientRect().x, 'value of x' )
       // if(tile.getBoundingClientRect().x === 0){
       //   btn1.current.classList.add('border-red-500');
       //   btn2.current.classList.remove('border-red-500');
@@ -398,17 +399,22 @@ function App() {
       
          let width = tile.getBoundingClientRect().width - 6
     if(xPosition===0){
-        btn1.current.classList.add('border-red-200');
-        btn2.current.classList.remove('border-red-200');
+        btn1.current.classList.add('border-gray-400');
+        btn2.current.classList.remove('border-gray-400');
     }
 
     if (window.innerWidth + Math.abs(xPosition) === width) {
-        btn2.current.classList.add('border-gray-200');
-        btn1.current.classList.remove('border-gray-200');
+        btn2.current.classList.add('border-gray-400');
+        btn1.current.classList.remove('border-gray-400');
     }
   }, [xPosition])
   
+ 
 
+  // useEffect(() => {
+    
+  // }, [listItem.current])
+  
 
   
 
@@ -442,7 +448,6 @@ function App() {
           setSlide(position)
           setXPosition(xPosition - 464)
 
-      // console.log(tile.getBoundingClientRect().x, 'value of x after clicking right' )
 
 
         }else{
@@ -459,7 +464,6 @@ function App() {
           setXPosition(xPosition + 464)
 
 
-      // console.log(tile.getBoundingClientRect().x, 'value of x after clicking right' )
 
 
   
@@ -476,6 +480,17 @@ function App() {
 
   
   }
+
+  let arr= [{main: 'What happens if I decide to move?',ext: 'You can very easily take care of it. You can even place a call, we would help with the transportation for a small fee'},{main:'How long do solar panels really last?',ext:'2'},{main:'How much can I expect to save when I go solar?',ext:'3'},{main:'Does my state offer incentives to go solar?',ext:'4'},{main:'How many solar panels will my home need?',ext: '5'},{main:'Is my home good for solar?',ext:'6'}]
+
+
+  if (listItemRefs.current.length !== arr.length) {
+    listItemRefs.current = Array(arr.length).fill().map((_, i) => listItemRefs.current[i] );
+  }
+
+  const dropDownList = arr.map((faq,index)=>{
+    return  <Dropdown faq={faq} key={index} index={index}/>
+  })
   
 
 
@@ -513,7 +528,7 @@ function App() {
           <div className='flex justify-between mt-10 mb-10 items-end '>
             <div className='bg-black items-center justify-between flex rounded-full w-[15rem] h-10 text-white px-8 '>
               <div>Get a quote</div>
-              <div>ar</div>
+              <div><RightArr color={'white'}/></div>
             </div>
             <div className=' w-[14rem]  relative'>
               <TextLogo/>
@@ -567,14 +582,14 @@ function App() {
             <div  className='text-4xl text-white ' >Solar for your home</div>
             <div  className='bg-white items-center justify-between flex rounded-full w-[15rem]  l1  h-10 px-8 mt-5 '>
             <div>Residence</div>
-            <div>ar</div>
+            <div><RightArr color={'black'}/></div>
             </div>
           </div>
           <div  className='w-[50%] elect2 bg-no-repeat bg-right bg-cover p-10'>
             <div className='text-2xl text-white '> solar for your buisness</div>
             <div className='bg-white items-center justify-between flex rounded-full w-[15rem] l2 h-10 px-8 mt-5'>
             <div>Commercial</div>
-              <div>ar</div>
+              <div><RightArr color={'black'}/></div>
             </div>
           
          
@@ -637,7 +652,7 @@ function App() {
             <div  className='mt-[5rem] w-[15rem] h-[3rem] px-8 border rounded-full justify-between flex items-center'>
               
               <p>Get a Quote</p>
-              <div><RightArr/></div>
+              <div><RightArr color={'black'}/></div>
             </div>
           </div>
           <div onMouseMove={(e)=>moveBg(e)} onMouseLeave={()=>resetBg()} ref={easyRef} style={{backgroundImage: "url('/cell.png')"}} className='w-[50%] h-[100vh] bg-no-repeat bg-cover cell'>
@@ -684,35 +699,12 @@ function App() {
             <div className='flex'>
               <div className='w-[50%] text-md'>Have a different question? </div>
               <ul className='w-[50%] h-[40rem]'>
-                <li className='hp w-[75%] px-4 py-3 text-xl bg-white flex mt-2 justify-between'>
-                  <div>
-                    <p>How long do solar panels really last?</p>
-                  </div>
-                  <div>ar</div>
-                  </li>
-                <li className=' hp w-[75%] px-4 py-3 text-xl bg-white flex mt-2 justify-between'>
-                  <div>What happens if I decide to move?</div>
-                  <div>ar</div> 
-                </li>
-                <li className='hp w-[75%] px-4 py-3 text-xl bg-white flex mt-2 justify-between' >
-                  <div>How much can I expect to save when I go solar?</div> 
-                  <div>ar</div></li>
-                <li className='hp w-[75%] px-4 py-3 text-xl bg-white flex mt-2 justify-between'>
-                  <div>Does my state offer incentives to go solar? </div>
-                  <div>ar</div>
-                </li>
-                <li className='hp w-[75%] px-4 py-3 text-xl bg-white flex mt-2 justify-between'>
-                  <div>How many solar panels will my home need?</div>
-                  <div>ar</div> </li>
-                <li className='hp w-[75%] px-4 py-3 text-xl bg-white flex mt-2 justify-between'>
-                  <div>Is my home good for solar?</div>
-                  <div>ar</div>
-                </li>
+                {dropDownList}
               </ul>
             </div>
             <div className='bg-white text-black items-center justify-between flex rounded-full w-[15rem] h-10 px-8 '>
               <div className=''>Browse all questions</div>
-              <div>ar</div>
+              <div><RightArr color={'black'}/></div>
               </div>
           
         </section>
@@ -732,7 +724,7 @@ function App() {
             </div>
             <div  className='w-[7rem] flex justify-between'>
               <button ref={btn1} onClick={()=>onMoveTile('left')} className=" w-12 h-12 rounded-full border-black border border-2 flex items-center justify-center"><LeftArr/></button>
-              <button ref={btn2} onClick={()=>onMoveTile('right')} className=" w-12 h-12 rounded-full border-black border  border-2 flex items-center justify-center"><RightArr/></button>
+              <button ref={btn2} onClick={()=>onMoveTile('right')} className=" w-12 h-12 rounded-full border-black border  border-2 flex items-center justify-center"><RightArr color={'black'}/></button>
             </div>
             </div>
             <div  className='overflow-x-scroll mt-10 transform'>
