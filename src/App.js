@@ -690,7 +690,7 @@ function App() {
          
         </section>
 
-        <section id="section6" ref={(el) => (sectionsRef.current[5] = el)} className='sec bg-gradient-to-b from-yellow-500 via-yellow-200 to-white p-[6rem]' >
+        <section id="section6" ref={(el) => (sectionsRef.current[5] = el)} className='sec bg-yellow-300 p-[6rem]' >
         <div className='text-5xl w-[40%]'>
               Your Questions, Answered
             </div>
@@ -709,7 +709,7 @@ function App() {
           
         </section>
         
-        <section ref={(el) => (sectionsRef.current[6] = el)} id="section7" className='sec w-full bg-yellow-200 h-[100vh] '>
+        <section ref={(el) => (sectionsRef.current[6] = el)} id="section7" className='sec w-full bg-gradient-to-b from-yellow-300 via-yellow-200 to-white  h-[100vh] '>
           <div className='   p-[4rem] hp' >
           <QuoteForm/>
 
