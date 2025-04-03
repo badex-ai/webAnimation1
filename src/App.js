@@ -1,19 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
-import Headphone from './assets/Headphone';
-import Sun from './assets/Sun';
-import CreditIcon from './assets/Creditcard';
+import Headphone from './assets/Headphone.jsx';
+import Sun from './assets/Sun.jsx';
+import CreditIcon from './assets/Creditcard.jsx';
 import { Link } from "react-router" ;
 import QuoteForm from "./component/form"
 import { useRef,useEffect, useState } from 'react';
 import TextLogo from './component/text';
-import Star from './assets/Star'
-import Ribbon from './assets/Ribbon';
-import Shield from './assets/Shield'
-import Payment from './assets/Payment';
-import RightArr from './assets/Rightarr';
-import LeftArr from './assets/Leftarr';
-import Dropdown from './component/Dropdown';
+import Star from './assets/Star.jsx'
+import Ribbon from './assets/Ribbon.jsx';
+import Shield from './assets/Shield.jsx'
+import Payment from './assets/Payment.jsx';
+import RightArr from './assets/Rightarr.jsx';
+import LeftArr from './assets/Leftarr.jsx';
+import Dropdown from './component/Dropdown.jsx';
 
 function App() {
   
