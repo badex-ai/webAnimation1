@@ -1,19 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
-import Headphone from './assets/headphone';
-import Sun from './assets/sun';
-import CreditIcon from './assets/creditcard';
+import Headphone from './assets/Headphone';
+import Sun from './assets/Sun';
+import CreditIcon from './assets/Creditcard';
 import { Link } from "react-router" ;
 import QuoteForm from "./component/form"
 import { useRef,useEffect, useState } from 'react';
 import TextLogo from './component/text';
-import Star from './assets/star'
-import Ribbon from './assets/ribbon';
-import Shield from './assets/shield'
-import Payment from './assets/payment';
-import RightArr from './assets/right-arrow';
-import LeftArr from './assets/left-arrow';
-import Dropdown from './component/dropDown';
+import Star from './assets/Star'
+import Ribbon from './assets/Ribbon';
+import Shield from './assets/Shield'
+import Payment from './assets/Payment';
+import RightArr from './assets/Rightarr';
+import LeftArr from './assets/Leftarr';
+import Dropdown from './component/Dropdown';
 
 function App() {
   
@@ -690,7 +690,7 @@ function App() {
          
         </section>
 
-        <section id="section6" ref={(el) => (sectionsRef.current[5] = el)} className='sec bg-yellow-400  p-[6rem]' >
+        <section id="section6" ref={(el) => (sectionsRef.current[5] = el)} className='sec bg-gradient-to-b from-yellow-500 via-yellow-200 to-white p-[6rem]' >
         <div className='text-5xl w-[40%]'>
               Your Questions, Answered
             </div>
@@ -698,7 +698,7 @@ function App() {
             
             <div className='flex'>
               <div className='w-[50%] text-md'>Have a different question? </div>
-              <ul className='w-[50%] h-[40rem]'>
+              <ul className='w-[50%] h-[35rem]'>
                 {dropDownList}
               </ul>
             </div>

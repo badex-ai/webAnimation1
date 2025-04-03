@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import BottomArr from '../assets/bottom-arrow'
+import BottomArr from '../assets/Bottomarr'
 
 function Dropdown({ faq, index }) {
     const itemRef = useRef()
