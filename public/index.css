@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+}
+
+.elect1 {
+  transition: width 0.3s ease-out;
+  background-Image: url('./Assets/elect1.jpg');
+
+
+}
+
+.elect2 {
+  background-Image: url('./Assets/elect2.jpeg');
+  transition: width 0.3s ease-out;
+  transform: rotateY(360deg);
+
+
+}
+
+.l1 {
+  transition: width 0.3s ease-out;
+}
+
+.l2 {
+  transition: width 0.3s ease-out;
+}
+
+
+.elect2:hover {
+  width: 55%;
+}
+
+.elect1:hover {
+  width: 55%;
+}
+
+.elect1:hover>.l1 {
+  width: 20rem;
+}
+
+.elect2:hover>.l2 {
+  width: 20rem;
+}
+
+.cell {
+  transition: backgroundPosition 1 ease-out
+}
+
+
+.transform::-webkit-scrollbar {
+
+  display: none;
+
+}
+
+.p::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  /* background: radial-gradient(circle, rgba(255, 215, 0, 0.5), transparent); */
+  width: 50px;
+  height: 50px;
+  /* background: blue; */
+  mask-image: (rgb(0 0 0 / 100%), transparent);
+
+  /* mask-image: radial-gradient(circle, rgba(255, 215, 0, 1) 0%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle, rgba(255, 215, 0, 1) 0%, transparent 100%);
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  background-clip: text; */
+  /* z-index: -1; */
+  /* Ensures it appears behind the text */
+  /* pointer-events: none; */
+  /* So it doesn't interfere with mouse events */
+}
+
+
+
+
+.hp {
+  opacity: 0;
+  transform: translateY(40px);
+  /* Initial position below */
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  overflow: hidden;
+}
+
+.textrise {
+  opacity: 1;
+  transform: translateY(0);
+  /* Move to its normal position */
+}
+
+@keyframes moveBanner {
+  0% {
+    transform: translateX(100%);
+    /* Start position, fully off-screen to the right */
+  }
+
+  100% {
+    transform: translateX(-100%);
+    /* End position, fully off-screen to the left */
+  }
+}
+
+/* Each section */
+
+
+
+
+
+/* .elect2:hover+.elect1 {
+  width: 55%;
+} */
+
+.elect2:hover {
+  flex-grow: 2;
+}
+
+.rotatebtn {
+  transform: rotate(90deg);
+}
+
+
+
+.banner {
+  animation: moveBanner 10s linear infinite;
+}
+
+@keyframes moveBanner {
+  0% {
+    transform: translateX(100%);
+    /* Start position, fully off-screen to the right */
+  }
+
+  100% {
+    transform: translateX(-100%);
+    /* End position, fully off-screen to the left */
+  }
+}
+
+
+@keyframes rotateAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+
+.elect:hover code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

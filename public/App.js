@@ -1,19 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
-import Headphone from './assets/headphone';
-import Sun from './assets/sun';
-import CreditIcon from './assets/creditcard';
+import Headphone from './Assets/headphone';
+import Sun from './Assets/sun';
+import CreditIcon from './Assets/creditcard';
 import { Link } from "react-router" ;
 import QuoteForm from "./component/form"
 import { useRef,useEffect, useState } from 'react';
 import TextLogo from './component/text';
-import Star from './assets/star'
-import Ribbon from './assets/ribbon';
-import Shield from './assets/shield'
-import Payment from './assets/payment';
-import RightArr from './assets/right-arrow';
-import LeftArr from './assets/left-arrow';
-import Dropdown from './component/dropDown';
+import Star from './Assets/star'
+import Ribbon from './Assets/ribbon';
+import Shield from './Assets/shiled';
+import Payment from './Assets/payment';
+import RightArr from './Assets/right-arrow';
+import LeftArr from './Assets/left-arrow';
+import BottomArr from './Assets/bottom-arrow';
 
 function App() {
   
@@ -409,7 +409,16 @@ function App() {
     }
   }, [xPosition])
   
- 
+  const openBox = (index)=>{
+
+    if(listItemRefs.current[index]){
+     console.log( listItemRefs.current)
+     listItemRefs.current[index].style.height = 'auto'
+     listItemRefs.current[index].style.transition = 'height 1s ease'
+    }
+    console.log('buttonclicked my boy',index)
+
+  }
 
   // useEffect(() => {
     
@@ -489,7 +498,17 @@ function App() {
   }
 
   const dropDownList = arr.map((faq,index)=>{
-    return  <Dropdown faq={faq} key={index} index={index}/>
+    return  <li key={index} ref={(el)=>listItemRefs.current = el} className='hp w-[75%] bg-white px-4 py-3 h-[60px] mt-6'>
+    <div className='text-xl flex mt-2 items-center justify-between'>
+    <div><p>{faq.main}</p></div>
+    <button  onClick={()=>openBox(index)}><BottomArr /></button> 
+    </div>
+    <div className='w-[80%] mt-[10px]' >
+     <p>{faq.ext}</p> 
+    </div>
+    
+    
+  </li>
   })
   
 
