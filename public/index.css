@@ -14,13 +14,13 @@ body {
 
 .elect1 {
   transition: width 0.3s ease-out;
-  background-Image: url('./Assets/elect1.jpg');
+  background-Image: url('./assets/elect1.jpg');
 
 
 }
 
 .elect2 {
-  background-Image: url('./Assets/elect2.jpeg');
+  background-Image: url('./assets/elect2.jpeg');
   transition: width 0.3s ease-out;
   transform: rotateY(360deg);
 
