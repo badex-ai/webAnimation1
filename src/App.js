@@ -14,6 +14,7 @@ import Payment from './assets/Payment.jsx';
 import RightArr from './assets/Rightarr.jsx';
 import LeftArr from './assets/Leftarr.jsx';
 import Dropdown from './component/Dropdown.jsx';
+import Rooftop from './assets/rooftop.jsx';
 
 function App() {
   
@@ -599,9 +600,12 @@ function App() {
 
         <section ref={(el) => (sectionsRef.current[2] = el)}  id="section3" className='sec px-10 h-[100vh] text-center py-[5rem] flex flex-col items-center'>
          
-            <p className='text-4xl w-[30rem] hp '>Shatter the boundaries of traditional Energy</p>
+            <h2 className='text-4xl w-[30rem] hp '>Shatter the boundaries of traditional Energy</h2>
            
-            <div className='h-[18rem] mt-[6rem] bg-red-400 w-[60rem]'></div>
+            {/* bg-red-400 */}
+            <div className='h-[18rem] mt-[3rem]  w-[60rem]'>
+              <Rooftop/>
+            </div>
            
           <p className='mt-[3rem] w-[16rem] mx-0 my-auto me'>Upgrade to Affordable Dependable Solar and Battery Power
 
