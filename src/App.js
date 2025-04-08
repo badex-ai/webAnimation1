@@ -14,7 +14,9 @@ import Payment from './assets/Payment.jsx';
 import RightArr from './assets/Rightarr.jsx';
 import LeftArr from './assets/Leftarr.jsx';
 import Dropdown from './component/Dropdown.jsx';
-import Rooftop from './assets/rooftop.jsx';
+import Rooftop from './assets/Rooftop.jsx';
+import homeNight from './assets/homeNight.jpg';
+import homeDay from './assets/homeDay.jpg';
 
 function App() {
   
@@ -25,7 +27,7 @@ function App() {
   const btn2 = useRef()
   const listItemRefs = useRef([])
   const customRef= useRef()
-  const [xy,setxy] = useState(null)
+  const [xySectionScroll,setxySectionScroll] = useState(null)
   const sectionsRef = useRef([]);
   const [maskPosition, setMaskPosition] = useState({ x: 0, y: 0 });
   const numberOfSections = 8
@@ -33,7 +35,9 @@ function App() {
   const [isScrolling, setIsScrolling] = useState(false);
   const [slide, setSlide] = useState(0)
   const scrollTimeout = useRef(null);
-  const [xPosition, setXPosition] = useState(0);
+  const [xTilePosition, setxTilePosition] = useState(0);
+  const [rightArrColor, setRightArrColor] = useState('black');
+  const [LeftArrColor, setLeftArrColor] = useState('black');
 
 
  
@@ -56,8 +60,6 @@ function App() {
     
     if(sectionsRef.current){
       document.documentElement.style.scrollBehavior = 'smooth';
-    
-     
     }
     
    
@@ -71,14 +73,14 @@ function App() {
 
 
   
-  useEffect(() => {
-    // Add the wheel event listener for auto-scrolling
-    // window.addEventListener('wheel', handleWheel);
-    window.addEventListener('wheel', handleWheel, { passive: false });
-  return () => {
-    window.removeEventListener('wheel', handleWheel, { passive: false });
-  };
-  }, [currentSection]);
+  // useEffect(() => {
+  //   // Add the wheel event listener for auto-scrolling
+  //   // window.addEventListener('wheel', handleWheel);
+  //   window.addEventListener('wheel', handleWheel, { passive: false });
+  // return () => {
+  //   window.removeEventListener('wheel', handleWheel, { passive: false });
+  // };
+  // }, [currentSection]);
 
   useEffect(() => {
     // Access the current ref after the component has mounted
@@ -86,8 +88,8 @@ function App() {
     const container = easyRef.current;
     const rect = container.getBoundingClientRect();
 
-    if (container && xy) {
-      const {x,y} = xy
+    if (container && xySectionScroll) {
+      const {x,y} = xySectionScroll
 
      
       const xPercent = (x - rect.left) / rect.width;  // Values between 0 and 1
@@ -97,7 +99,7 @@ function App() {
       container.style.backgroundPosition = `${50 + xOffset}% ${50 + yOffset}%`;
       
     }
-  }, [xy]);
+  }, [xySectionScroll]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -153,6 +155,41 @@ function App() {
     };
   }, [currentSection, isScrolling]);
 
+  const testScroll = (index) => {
+    const section = sectionsRef.current[0];
+    console.log(section.offsetHeight, window.innerHeight )
+    console.log(section.offsetTop, window.innerHeight )
+
+    if (currentSection === 0  ) {
+      setIsScrolling(true);
+      // setCurrentSection(index);
+      
+      window.scrollTo({
+        top: (section.offsetHeight - window.innerHeight) + section.offsetTop,
+        behavior: 'smooth',
+      });
+
+      // section.style.backgroundImage = `url(${homeNight})`
+      console.log(section.children[0])
+      console.log(section.children[1])
+      const night = section.children[0]
+      const day = section.children[1]
+      day.style.animation = 'leave .2s ease-out forwards' 
+      night.style.animation= 'enter .2s ease-in forwards' 
+
+      
+
+      
+      // section.transition = 'backgroundImage 1.2s ease'
+      
+      clearTimeout(scrollTimeout.current);
+      scrollTimeout.current = setTimeout(() => {
+        setIsScrolling(false);
+      }, 1200);
+    }
+  }
+
+ 
   const handleWheel = (event) => {
     
     const lastSectionRect = sectionsRef.current[sectionsRef.current.length - 1] 
@@ -165,11 +202,11 @@ function App() {
     const isAtEndOfSections = 
     currentSection === sectionsRef.current.length - 1  && event.deltaY > 0;
   
-  if (isAtEndOfSections) {
-    // Allow natural scrolling by NOT calling preventDefault()
-    
-    return; 
-  }
+    if (isAtEndOfSections) {
+      // Allow natural scrolling by NOT calling preventDefault()
+      
+      return; 
+    }
     
     // If we're not within the sections area, let normal scrolling happen
     if (!isWithinSections) {
@@ -185,60 +222,78 @@ function App() {
     
     
     // Handle section 0 differently
-    // if (currentSection === 0) {
-    //   const thresholdPercentage = 0.5;
-    //   const scrollThreshold = window.innerHeight * thresholdPercentage;
-    //   const top = sectionsRef.current[0].getBoundingClientRect().top;
+    const target = sectionsRef.current[0].offsetHeight - window.innerHeight + sectionsRef.current[0].offsetTop
+    
+    if (currentSection === 0 && event.deltaY > 0 && window.scrollY < target) {
+      console.log('truth')
+      setIsScrolling(true);
+      // setCurrentSection(index);
+      const section = sectionsRef.current[0];
       
-    //   setIsScrolling(true);
+      window.scrollTo({
+        top: target,
+        behavior: 'smooth',
+      });
+
+      // section.style.backgroundImage = `url(${homeNight})`
+     
+      const night = section.children[0]
+      const day = section.children[1]
+      day.style.animation = 'leave .4s ease-out forwards' 
+      night.style.animation= 'enter .4s ease-in forwards' 
+
       
-    //   if (!(Math.round(top) <= 0) && Math.round(top) <= Math.round(scrollThreshold) && Math.round(top) > 0 && event.deltaY > 0) {
-    //     window.scrollTo({
-    //       top: sectionsRef.current[0].offsetTop,
-    //       behavior: 'smooth',
-    //     });
-    //   }
-    // }
+
+      
+      // section.transition = 'backgroundImage 1.2s ease'
+      
+      clearTimeout(scrollTimeout.current);
+      scrollTimeout.current = setTimeout(() => {
+        setIsScrolling(false);
+      }, 1200);
+
+      return 
+    }
 
     
     let targetSection = currentSection;
   
-  // Handle scrolling between sections - only move one section at a time
-  if (event.deltaY > 0 && currentSection < numberOfSections - 1) {
-    // Scroll down to next section
+    // Handle scrolling between sections - only move one section at a time
+    if (event.deltaY > 0 && currentSection < numberOfSections - 1) {
+      // Scroll down to next section
+      
+      targetSection = currentSection + 1;
     
-    targetSection = currentSection + 1;
-   
-  } else if (event.deltaY < 0 && currentSection > 0) {
+    } else if (event.deltaY < 0 && currentSection > 0) {
     // Scroll up to previous section
   
     targetSection = currentSection - 1;
     
-  } else {
+    } else {
     // No section change needed
     setIsScrolling(false);
     return;
-  }
+    }
  
-  // Only scroll if the target section is different
-  if (targetSection !== currentSection) {
-    // Perform the scroll
-    scrollToSection(targetSection);
-    
-    // Set a timeout that matches the duration of your smooth scroll
-    clearTimeout(scrollTimeout.current);
-    scrollTimeout.current = setTimeout(() => {
+    // Only scroll if the target section is different
+    if (targetSection !== currentSection) {
+      // Perform the scroll
+      scrollToSection(targetSection);
+      
+      // Set a timeout that matches the duration of your smooth scroll
+      clearTimeout(scrollTimeout.current);
+      scrollTimeout.current = setTimeout(() => {
+        setIsScrolling(false);
+        }, 1400); // Adjust this time to match your scroll animation duration
+      } else {
       setIsScrolling(false);
-    }, 1400); // Adjust this time to match your scroll animation duration
-  } else {
-    setIsScrolling(false);
-  }
+      }
   };
 
  
   
 
-  // if(current)
+
   
 
   
@@ -321,7 +376,7 @@ function App() {
       const y = e.clientY - rect.top;
       
 
-      setxy({x,y})
+      setxySectionScroll({x,y})
      
     }
   
@@ -357,7 +412,7 @@ function App() {
       tile.style.transition = 'transform 0.2s ease-out '
     }
 
-    if(tileRef.current){
+    // if(tileRef.current){
       
 
 
@@ -384,7 +439,7 @@ function App() {
   
       // }
     
-    }
+    // }
 
     // console.log(slide, value)
 
@@ -399,16 +454,22 @@ function App() {
     let tile = tileRef.current
       
          let width = tile.getBoundingClientRect().width - 6
-    if(xPosition===0){
+    if(xTilePosition===0){
         btn1.current.classList.add('border-gray-400');
+      //  console.log(btn1.current,'this is btn1')
+       setLeftArrColor('gray')
+       setRightArrColor('black')
+
         btn2.current.classList.remove('border-gray-400');
     }
 
-    if (window.innerWidth + Math.abs(xPosition) === width) {
+    if (window.innerWidth + Math.abs(xTilePosition) === width) {
         btn2.current.classList.add('border-gray-400');
         btn1.current.classList.remove('border-gray-400');
+        setRightArrColor('gray')
+        setLeftArrColor('black')
     }
-  }, [xPosition])
+  }, [xTilePosition])
   
  
 
@@ -417,15 +478,7 @@ function App() {
   // }, [listItem.current])
   
 
-  
 
-
- 
-  
-  
-
-
- 
 
   const onMoveTile = (value)=>{
      
@@ -447,7 +500,7 @@ function App() {
          
           position = slide - 29
           setSlide(position)
-          setXPosition(xPosition - 464)
+          setxTilePosition(xTilePosition - 464)
 
 
 
@@ -462,7 +515,7 @@ function App() {
         if(tile.getBoundingClientRect().x < 0){
           position = slide + 29
           setSlide(position)
-          setXPosition(xPosition + 464)
+          setxTilePosition(xTilePosition + 464)
 
 
 
@@ -524,7 +577,7 @@ function App() {
 
           <div className='flex mt-[22rem] w-[40rem] justify-between'>
             <div>1042034 Joined</div>
-            <div className='w-[20rem] bg-yellow-100'>Step Into Tomorrow Like Never Before. <span>Exprience Advanced Solar Power</span></div>
+            <div className='w-[20rem]'>Step Into Tomorrow Like Never Before. <span>Exprience Advanced Solar Power</span></div>
           </div>
           <div className='flex justify-between mt-10 mb-10 items-end '>
             <div className='bg-black items-center justify-between flex rounded-full w-[15rem] h-10 text-white px-8 '>
@@ -539,11 +592,16 @@ function App() {
           </div>
            
       </header>
-      
-      <section ref={(el) => (sectionsRef.current[0] = el)}  style={{height: "calc(100vh + 28rem)" , backgroundImage: "url('/image1.jpg')" } } className='sec  p-[10rem] bg-yellow-100 bg-cover bg-no-repeat'>
+      {/* backgroundImage: "url('/image1.jpg')" */}
+      <section ref={(el) => (sectionsRef.current[0] = el)}  style={{height: "calc(100vh + 28rem)"} } className='relative sec  p-[10rem]'>
+        
+          <img className='absolute z-[-10] top-0 left-0 w-full h-full opacity-0'  src={homeNight}/>
+          <img className='absolute z-[-20] top-0 left-0 w-full h-full opacity-100'  src={homeDay}/>
+        
           <div style={{height: "calc(100vh + 28rem - 20rem)"}} className='flex '>
             <div  className="w-[50%] text-3xl">
               <p className='w-[18rem] text-white'>America's Top Pick For Home Solar and Energy Storage</p>
+              <button onClick={testScroll}>Click me</button>
               </div>
             <div className="w-[50%] ">
               <div className="flex h-[100%] justify-between items-center flex-col text-center">
@@ -580,14 +638,14 @@ function App() {
        
         <section ref={(el) => (sectionsRef.current[1] = el)} className='sec bg-pink-100 h-screen flex w-full parent'>
           <div  className='w-[50%] p-10  bg-no-repeat elect1'>
-            <div  className='text-4xl text-white ' >Solar for your home</div>
+            <h2  className='text-4xl text-white ' >Solar for your <span className='block'>home</span></h2>
             <div  className='bg-white items-center justify-between flex rounded-full w-[15rem]  l1  h-10 px-8 mt-5 '>
             <div>Residence</div>
             <div><RightArr color={'black'}/></div>
             </div>
           </div>
           <div  className='w-[50%] elect2 bg-no-repeat bg-right bg-cover p-10'>
-            <div className='text-2xl text-white '> solar for your buisness</div>
+            <h2 className='text-4xl text-white '> Solar for your <span className='block'>business</span></h2>
             <div className='bg-white items-center justify-between flex rounded-full w-[15rem] l2 h-10 px-8 mt-5'>
             <div>Commercial</div>
               <div><RightArr color={'black'}/></div>
@@ -612,7 +670,7 @@ function App() {
           </p>
           <div className='textrise mt-[1rem] w-[15rem] h-[4rem] px-8 border rounded-full justify-between flex items-center'>
             <div>Get a Quote</div>
-           <div><RightArr/></div>
+           <div><RightArr color={'black'}/></div>
             </div>
         </section>
 
@@ -727,8 +785,8 @@ function App() {
               <p className='w-[30rem]'>Transform Your Living with Solar Power</p>
             </div>
             <div  className='w-[7rem] flex justify-between'>
-              <button ref={btn1} onClick={()=>onMoveTile('left')} className=" w-12 h-12 rounded-full border-black border border-2 flex items-center justify-center"><LeftArr/></button>
-              <button ref={btn2} onClick={()=>onMoveTile('right')} className=" w-12 h-12 rounded-full border-black border  border-2 flex items-center justify-center"><RightArr color={'black'}/></button>
+              <button ref={btn1} onClick={()=>onMoveTile('left')} className=" w-12 h-12 rounded-full border-black border border-2 flex items-center justify-center"><LeftArr  color={LeftArrColor}/></button>
+              <button ref={btn2} onClick={()=>onMoveTile('right')} className=" w-12 h-12 rounded-full border-black border  border-2 flex items-center justify-center"><RightArr color={rightArrColor}/></button>
             </div>
             </div>
             <div  className='overflow-x-scroll mt-10 transform'>

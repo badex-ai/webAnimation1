@@ -10,7 +10,7 @@ const LeftArr = (props) => (
         <g id="icons" fill="none" fillRule="evenodd" stroke="none" strokeWidth="1">
             <g
                 id="ui-gambling-website-lined-icnos-casinoshunter"
-                fill="#1C1C1F"
+                fill={props.color}
                 fillRule="nonzero"
                 transform="translate(-1641 -158)"
             >

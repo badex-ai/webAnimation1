@@ -6,6 +6,7 @@ const RightArr = (props) => (
         width="20"
         height="20"
         viewBox="0 -6.5 38 38"
+
     >
         <g id="icons" fill="none" fillRule="evenodd" stroke="none" strokeWidth="0.8">
             <g
