@@ -105,7 +105,44 @@ function App() {
     const observer = new IntersectionObserver(
       (entries, observer) => {
         entries.forEach((entry) => {
+
+          // Check if the section is in view
           if (entry.isIntersecting) {
+            // Add the animation class to the section
+
+            const solarPanels = Array.from(entry.target.querySelectorAll('[id^="panel-"]'))
+            .filter(el => /^panel-\d+-\d+$/.test(el.id))
+
+            const connector = entry.target.querySelector('.connector')
+
+
+            
+            if(solarPanels.length > 0 && connector ){
+
+
+              console.log(connector,'this is the connector')
+              setTimeout(() => {
+
+                solarPanels.forEach((solarPanel,index)=> {
+                   
+                  setTimeout(() => {
+                    solarPanel.classList.add('solarPanelFadeIn');
+                    const grid = solarPanel.querySelector('[id$="-grid"]');
+                    if (grid) {
+                      grid.classList.add('solarPanelFadeIn');
+                    }
+                  }, index* 55);
+                 
+                })
+
+                setTimeout(() => {
+                  connector.classList.add('connectorSlideIn');
+                }, solarPanels.length * 55 + 200);
+
+              }, 700);
+            
+          }
+            
             // Trigger animation only once
             const elements = entry.target.querySelectorAll('.hp');
 
@@ -119,6 +156,8 @@ function App() {
                   el.classList.add('textrise');
                 }, index * 55); // 4000 milliseconds = 4 seconds
               });
+
+              
             }else{
               const elements = entry.target.querySelector('.hp').classList.add('textrise')
             }
@@ -155,39 +194,7 @@ function App() {
     };
   }, [currentSection, isScrolling]);
 
-  const testScroll = (index) => {
-    const section = sectionsRef.current[0];
-    console.log(section.offsetHeight, window.innerHeight )
-    console.log(section.offsetTop, window.innerHeight )
-
-    if (currentSection === 0  ) {
-      setIsScrolling(true);
-      // setCurrentSection(index);
-      
-      window.scrollTo({
-        top: (section.offsetHeight - window.innerHeight) + section.offsetTop,
-        behavior: 'smooth',
-      });
-
-      // section.style.backgroundImage = `url(${homeNight})`
-      console.log(section.children[0])
-      console.log(section.children[1])
-      const night = section.children[0]
-      const day = section.children[1]
-      day.style.animation = 'leave .2s ease-out forwards' 
-      night.style.animation= 'enter .2s ease-in forwards' 
-
-      
-
-      
-      // section.transition = 'backgroundImage 1.2s ease'
-      
-      clearTimeout(scrollTimeout.current);
-      scrollTimeout.current = setTimeout(() => {
-        setIsScrolling(false);
-      }, 1200);
-    }
-  }
+ 
 
  
   const handleWheel = (event) => {
@@ -601,7 +608,6 @@ function App() {
           <div style={{height: "calc(100vh + 28rem - 20rem)"}} className='flex '>
             <div  className="w-[50%] text-3xl">
               <p className='w-[18rem] text-white'>America's Top Pick For Home Solar and Energy Storage</p>
-              <button onClick={testScroll}>Click me</button>
               </div>
             <div className="w-[50%] ">
               <div className="flex h-[100%] justify-between items-center flex-col text-center">
@@ -658,7 +664,7 @@ function App() {
 
         <section ref={(el) => (sectionsRef.current[2] = el)}  id="section3" className='sec px-10 h-[100vh] text-center py-[5rem] flex flex-col items-center'>
          
-            <h2 className='text-4xl w-[30rem] hp '>Shatter the boundaries of traditional Energy</h2>
+            <h2 className='text-4xl w-[30rem] hp '>Shatter the boundaries of <span className='block'>Traditional Energy</span></h2>
            
             {/* bg-red-400 */}
             <div className='h-[18rem] mt-[3rem]  w-[60rem]'>
@@ -677,7 +683,7 @@ function App() {
         <section ref={(el) => (sectionsRef.current[3] = el)} id="section4" className='sec flex '>
           <div className='w-[50%] h-[100vh] pl-[12rem] py-[6rem] '>
             <div className='w-[22rem] h-[70%]'>
-            <div className=' hp'>PLAN & PRICING</div>
+            <div className='hp'>PLAN & PRICING</div>
             <div className='hp text-5xl'>
               <p className=''>Smart Savings.<span>  Easy Living</span></p>
             </div>

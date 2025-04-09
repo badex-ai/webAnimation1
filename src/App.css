@@ -37,3 +37,50 @@
     transform: rotate(360deg);
   }
 }
+
+.solarPanelFadeIn {
+  animation: fadeIn 1s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+[id^="panel-2-"] {
+
+  opacity: 0;
+
+}
+
+.connectorSlideIn {
+  animation: slideIn 0.5s ease-in-out forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translate3d(-32%, 0, 0);
+
+  }
+
+  to {
+    transform: translate3d(0%, 0, 0);
+
+  }
+}
+
+.connector {
+  transform: translate3d(-32%, 0, 0);
+
+}
+
+[id^="panel-1-"] {
+
+  opacity: 0;
+}
