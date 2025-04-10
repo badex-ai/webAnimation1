@@ -958,7 +958,7 @@ function App() {
           <div></div>
        
       </footer>
-      <button onClick={scrollToTop} className='fixed bg-white rounded-full w-[50px] h-[50px] right-[20px] bottom-10 flex items-center rotate-90 justify-center t'>
+      <button onClick={scrollToTop} className='fixed bg-white rounded-full w-[50px] h-[50px] right-[20px] bottom-10 flex items-center rotate-90 justify-center shadow-[rgba(0,0,0,0.35)_0px_5px_15px]'>
         <LeftArr color={'black'}/>
 
       </button>
