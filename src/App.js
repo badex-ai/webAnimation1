@@ -17,6 +17,12 @@ import Dropdown from './component/Dropdown.jsx';
 import Rooftop from './assets/Rooftop.jsx';
 import homeNight from './assets/homeNight.jpg';
 import homeDay from './assets/homeDay.jpg';
+import suit from './assets/suit.jpg'
+import factory from './assets/factory.jpg'
+import solarEarn from './assets/earnings.jpg'
+import staffing from './assets/staffing.jpg'
+import solarBox from './assets/solarBox.jpg'
+import heart from './assets/heart.jpg'
 
 function App() {
   
@@ -580,7 +586,7 @@ function App() {
           <nav className=' flex h-8 justify-between'>
           <div>
            <Link href='#'>
-            SUNPULSE
+            SOLARFLARE
             </Link>
 
            </div>
@@ -599,7 +605,7 @@ function App() {
           </nav>
 
           <div className='flex mt-[22rem] w-[40rem] justify-between'>
-            <div>1042034 Joined</div>
+            <div>10034 intallments</div>
             <div className='w-[20rem]'>Step Into Tomorrow Like Never Before. <span>Exprience Advanced Solar Power</span></div>
           </div>
           <div className='flex justify-between mt-10 mb-10 items-end '>
@@ -649,7 +655,7 @@ function App() {
               <div className="mt-6" >
                 <Headphone w={50} h={50}/>
                 </div>
-                <p>The Sunpulse Assurance</p>
+                <p>The Solarflare Assurance</p>
                 </div>
               </div>
              
@@ -759,7 +765,7 @@ function App() {
             <li><Star/></li>
             </ul>
             <div className='text-4xl mt-8 hp'>
-              it's convenient, we don't have to worry about it. SunPulse monitor it for us. if anythig happens they will come out and fix it so we like that part.
+              it's convenient, we don't have to worry about it. SolarFlare monitor it for us. if anythig happens they will come out and fix it so we like that part.
             
             </div>
             <div className='text-lg mt-10'>Harly - Litchfield Park, AZ</div>
@@ -814,7 +820,7 @@ function App() {
             <div  className='overflow-x-scroll mt-10 transform'>
             <div ref={tileRef}  className='flex w-[180rem] h-[29rem] border justify-between px-3 py-4 items-center'>
               <div>
-              <div style={{backgroundImage: "url('one.png')"}} className='w-[25rem] h-[25rem] bg-no-repeat bg-cover '></div>
+              <div style={{backgroundImage:`url(${solarBox})`}} className='w-[25rem] h-[25rem] bg-no-repeat bg-cover '></div>
               <p>
                 Product
               </p>
@@ -822,19 +828,19 @@ function App() {
               </div>
             
             <div>
-              <div style={{backgroundImage: "url('/two.png')"}} className='w-[25rem] h-[25rem]  bg-no-repeat bg-cover'>
+              <div style={{backgroundImage: `url(${staffing})`}} className='w-[25rem] h-[25rem]  bg-no-repeat bg-cover'>
              </div>
              <p>
-                Learn
+                Staffing
               </p>
-              <p>NEM 3.0 What is it and how it affects carlifornia</p>
+              <p>People at Solarflare</p>
             </div>
             <div>
-              <div style={{backgroundImage: "url('/three.png')"}} className='w-[25rem] bg-no-repeat h-[25rem] bg-cover'>
+              <div style={{backgroundImage: `url(${solarEarn})`}} className='w-[25rem] bg-no-repeat h-[25rem] bg-cover'>
              
               </div>
               <p>
-                Learn
+                Earn
               </p>
               <p>NEM 3.0 What is it and how it affects carlifornia</p>
             </div>
@@ -845,34 +851,34 @@ function App() {
               <p>
                 Learn
               </p>
-              <p>NEM 3.0 What is it and how it affects carlifornia</p>
+              <p>Understand the basics of solar energy</p>
             </div>
             <div>
-              <div style={{backgroundImage:" url('/one.png')"}} className='w-[25rem] bg-no-repeat h-[25rem] bg-cover'>
+              <div style={{backgroundImage:` url(${factory})`}} className='w-[25rem] bg-no-repeat h-[25rem] bg-cover'>
              
               </div>
               <p>
-                Learn
+                Factory
               </p>
-              <p>NEM 3.0 What is it and how it affects carlifornia</p>
+              <p>Factory facilities and credetials</p>
             </div>
             <div>
-              <div style={{backgroundImage:" url('/three.png')"}} className='w-[25rem] bg-no-repeat h-[25rem] bg-cover'>
+              <div style={{backgroundImage: `url(${suit})`}} className='w-[25rem] bg-no-repeat h-[25rem] bg-cover'>
              
               </div>
               <p>
-                Learn
+                Careers
               </p>
-              <p>NEM 3.0 What is it and how it affects carlifornia</p>
+              <p>Work with us</p>
             </div>
             <div>
-              <div style={{backgroundImage:" url('/two.png')"}} className='w-[25rem] bg-no-repeat h-[25rem] bg-cover'>
+              <div style={{backgroundImage: `url(${heart})`}} className='w-[25rem] bg-no-repeat h-[25rem] bg-cover'>
               
               </div>
               <p>
-                Learn
+                Non profit
               </p>
-              <p>NEM 3.0 What is it and how it affects carlifornia</p>
+              <p>Some of the social initiative we partake in</p>
             </div>
           </div>
 
@@ -885,7 +891,7 @@ function App() {
         <footer className='bg-black p-[4rem] text-white h-[100vh] flex flex-col'>
         <div className='flex w-full'>
           <div className='w-[50%] mt-[4rem] ml-[4rem]'>
-            <h1 className='text-2xl'>SUNPULSE</h1>
+            <h1 className='text-2xl'>SOLARFLARE</h1>
             <ul>
               <li className='mt-4'>Pricing</li>
               <li className='mt-2'>Learn</li>
@@ -899,7 +905,7 @@ function App() {
           </div>
           <div className=' p-[4rem] flex justify-between w-[50%]'>
             <div>
-              <h1>Meet Sunpulse</h1>
+              <h1>Meet Solarflare</h1>
               <ul>
                 <h1 className='mt-5'>Why Sunpuls</h1>
                 <li className='mt-2'>Our Guarantee</li>
