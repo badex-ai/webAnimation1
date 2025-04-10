@@ -63,6 +63,41 @@
   animation: slideIn 0.5s ease-in-out forwards;
 }
 
+.animateStroke {
+  /* stroke-dasharray: 100;       Total length of stroke (adjust as needed) */
+  /* stroke-dashoffset: 100; */
+  animation: stroke 0.5s ease-in-out forwards;
+}
+
+/* .connect {
+  
+  stroke-dasharray: 0;
+
+}  */
+
+.connect path {
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+  transition: stroke-dashoffset 0.5s ease-in-out;
+}
+
+/* When animation starts */
+.connect.animateStroke path {
+  stroke-dashoffset: 0;
+}
+
+
+
+/* @keyframes stroke {
+  0% {
+    stroke-dasharray: 0, 100;
+  }
+
+  to {
+    stroke-dasharray: 100, 0;
+  }
+} */
+
 @keyframes slideIn {
   from {
     transform: translate3d(-32%, 0, 0);

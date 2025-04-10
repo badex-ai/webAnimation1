@@ -43,6 +43,7 @@ const Rooftop = (props) => (
             </g>
         </g>
         <g className="connector"><path d="M80 117 h180" stroke="#8a8a8a" strokeWidth="3" fill="none"></path><rect x="245" y="110" width="20" height="12" fill="#ffffff" stroke="#8a8a8a" strokeWidth="1"></rect><rect x="266" y="111" width="10" height="8" fill="#ffffff" stroke="#8a8a8a" strokeWidth="1"></rect></g>
+        <g className="connect"><path d="M80 116 v20" stroke="#8a8a8a" strokeWidth="3" fill="none"></path></g>
         <g id="panel-row-1">
             <g id="panel-1-1">
                 <path fill="#ffffff" stroke="#8a8a8a" strokeWidth="2" d="M280 95l-40 80h90l40-80z"></path>

@@ -43,6 +43,8 @@ function App() {
  
 
   useEffect(() => {
+
+
      const handleScroll = () => {
         // Get the current scroll position
         const scrollPosition = window.scrollY;
@@ -114,13 +116,13 @@ function App() {
             .filter(el => /^panel-\d+-\d+$/.test(el.id))
 
             const connector = entry.target.querySelector('.connector')
+            const connect = entry.target.querySelector('.connect')
 
 
             
             if(solarPanels.length > 0 && connector ){
 
 
-              console.log(connector,'this is the connector')
               setTimeout(() => {
 
                 solarPanels.forEach((solarPanel,index)=> {
@@ -138,6 +140,10 @@ function App() {
                 setTimeout(() => {
                   connector.classList.add('connectorSlideIn');
                 }, solarPanels.length * 55 + 200);
+
+                setTimeout(() => {
+                  connect.classList.add('animateStroke');
+                }, solarPanels.length * 55 + 200 + 500);
 
               }, 700);
             
@@ -194,7 +200,12 @@ function App() {
     };
   }, [currentSection, isScrolling]);
 
- 
+  const scrollToTop=()=>{
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }
 
  
   const handleWheel = (event) => {
@@ -208,6 +219,12 @@ function App() {
 
     const isAtEndOfSections = 
     currentSection === sectionsRef.current.length - 1  && event.deltaY > 0;
+
+    if (currentSection === 0 && event.deltaY < 0) {
+      // Allow normal scrolling by NOT preventing default
+      console.log('yes')
+      return;
+    }
   
     if (isAtEndOfSections) {
       // Allow natural scrolling by NOT calling preventDefault()
@@ -232,7 +249,6 @@ function App() {
     const target = sectionsRef.current[0].offsetHeight - window.innerHeight + sectionsRef.current[0].offsetTop
     
     if (currentSection === 0 && event.deltaY > 0 && window.scrollY < target) {
-      console.log('truth')
       setIsScrolling(true);
       // setCurrentSection(index);
       const section = sectionsRef.current[0];
@@ -330,7 +346,7 @@ function App() {
     const circleElement = svgElement.querySelector('circle');
 
     const pathElements = svgElement.querySelectorAll('path');
-    circleElement.setAttribute('fill', 'orange');
+    circleElement.setAttribute('fill', '#fee71d');
 
   
    svgElement.style.animation = 'rotateAnimation 1s ease .3s';
@@ -557,7 +573,7 @@ function App() {
 
   return (
   
-      <div  className='cont'>
+      <div  className='cont relative'>
       <header ref={customRef} className="px-10 h-[65%] w-full">
        
 
@@ -942,6 +958,10 @@ function App() {
           <div></div>
        
       </footer>
+      <button onClick={scrollToTop} className='fixed bg-white rounded-full w-[50px] h-[50px] right-[20px] bottom-10 flex items-center rotate-90 justify-center t'>
+        <LeftArr color={'black'}/>
+
+      </button>
       </div>
      
     
