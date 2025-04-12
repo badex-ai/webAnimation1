@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import Headphone from './assets/Headphone.jsx';
 import Sun from './assets/Sun.jsx';
-import CreditIcon from './assets/Creditcard.jsx';
+import CreditIcon from './assets/Creditcard';
 import { Link } from "react-router" ;
 import QuoteForm from "./component/form"
 import { useRef,useEffect, useState } from 'react';
@@ -23,12 +23,18 @@ import solarEarn from './assets/earnings.jpg'
 import staffing from './assets/staffing.jpg'
 import solarBox from './assets/solarBox.jpg'
 import heart from './assets/heart.jpg'
+import blog from './assets/blogImage.jpg'
+import Location from './assets/location.jsx';
+import phoneman from './assets/phoneman.jpg';
+import maintain from './assets/maintain.jpg'
 
 function App() {
   
   const myRef= useRef()
-  const tileRef= useRef()
   const easyRef= useRef()
+  const tileRef= useRef()
+  const headRef= useRef()
+  const creditRef= useRef()
   const btn1 = useRef()
   const btn2 = useRef()
   const listItemRefs = useRef([])
@@ -228,7 +234,7 @@ function App() {
 
     if (currentSection === 0 && event.deltaY < 0) {
       // Allow normal scrolling by NOT preventing default
-      console.log('yes')
+      
       return;
     }
   
@@ -389,6 +395,66 @@ function App() {
     svgElement.style.animation = 'none';
   }
 
+  
+  const creditMoveEnter = () => {
+
+    let svgElement;
+   
+    if(creditRef){
+      svgElement = creditRef.current;
+      
+
+    }
+    
+
+  
+   
+ 
+    void svgElement.offsetWidth;
+  
+    // Apply the animation
+      svgElement.style.transformOrigin = 'bottom left';
+      svgElement.style.animation = 'creditSlide .5s ease-in-out';
+
+  
+
+    
+
+    
+  }
+
+  const creditMoveLeave = () => {
+
+    const svgElement = creditRef.current;
+    if (!svgElement) return;
+  
+    svgElement.style.animation = 'creditSlide .5s ease-in-out';
+  
+    
+    
+  
+    svgElement.style.animation = 'none';
+  }
+
+
+  const hoverIconEnter =()=>{
+    if (!headRef) return 
+
+    const svgElement = headRef.current;
+
+    svgElement.style.animation = 'hoverCard .5s ease';
+
+  }
+  const hoverIconLeave =()=>{
+    if (!headRef) return 
+
+    const svgElement = headRef.current;
+
+    svgElement.style.animation = 'none';
+
+  }
+
+
   const moveBg = (e) =>{
     
  
@@ -427,6 +493,8 @@ function App() {
     const y = e.clientY - rect.top;
     setMaskPosition({ x, y });
   };
+
+  
 
 
   
@@ -478,27 +546,7 @@ function App() {
       
   }, [slide])
 
-  // useEffect(() => {
-
-  //   let tile = tileRef.current
-      
-  //        let width = tile.getBoundingClientRect().width - 6
-  //   if(xTilePosition===0){
-  //       btn1.current.classList.add('border-gray-400');
-  //     //  console.log(btn1.current,'this is btn1')
-  //      setLeftArrColor('gray')
-  //      setRightArrColor('black')
-
-  //       btn2.current.classList.remove('border-gray-400');
-  //   }
-
-  //   if (window.innerWidth + Math.abs(xTilePosition) === width) {
-  //       btn2.current.classList.add('border-gray-400');
-  //       btn1.current.classList.remove('border-gray-400');
-  //       setRightArrColor('gray')
-  //       setLeftArrColor('black')
-  //   }
-  // }, [xTilePosition])
+ 
   
  
 
@@ -509,60 +557,7 @@ function App() {
 
 
 
-  // const onMoveTile = (value)=>{
-     
-  //   let tile = tileRef.current
-
-  //   if(!tile)return
-
-   
-
-  //     let position;
-     
-
-  //     if (value == 'right') {
-  //      let xim =  tile.getBoundingClientRect().x
-  //      let yim = tile.getBoundingClientRect().right 
-  //      let width = tile.getBoundingClientRect().width - 6
-       
-  //       if(window.innerWidth + Math.abs(xim) < width   ){
-         
-  //         position = slide - 29
-  //         setSlide(position)
-  //         setxTilePosition(xTilePosition - 464)
-
-
-
-  //       }else{
-  //         return
-  //       }
-  //     }
-        
-      
-  //     if (value == 'left') {
-
-  //       if(tile.getBoundingClientRect().x < 0){
-  //         position = slide + 29
-  //         setSlide(position)
-  //         setxTilePosition(xTilePosition + 464)
-
-
-
-
   
-  //       }else{
-  //         return
-  //       }
-  //     }
-  //     // && tile.getBoundingClientRect().right + Math.abs(tile.getBoundingClientRect().x) < tile.getBoundingClientRect().width
-      
-      
-    
-
-      
-
-  
-  // }
 
   useEffect(() => {
     let tile = tileRef.current;
@@ -575,6 +570,13 @@ function App() {
     if (xTilePosition === 0) {
       btn1.current.classList.add('border-gray-400');
       setLeftArrColor('gray');
+      setRightArrColor('black');
+      btn2.current.classList.remove('border-gray-400');
+    }
+
+    if ( xTilePosition !== 0 && Math.abs(xTilePosition - maxRightPosition) > 10 ){
+      btn1.current.classList.remove('border-gray-400');
+      setLeftArrColor('black');
       setRightArrColor('black');
       btn2.current.classList.remove('border-gray-400');
     }
@@ -601,17 +603,17 @@ function App() {
     
     let newSlide = slide;
     let newXPosition = xTilePosition;
-    const slideIncrement = 29;  //each tile is 29rem
+    const slideIncrementDimension = 29;  //each tile is 29rem
     const xPositionIncrement = 464;
     
     if (value === 'right') {
       // Check if moving right wouldn't exceed the right boundary
       if (xTilePosition - xPositionIncrement >= maxRightSlide) {
-        newSlide = slide - slideIncrement;
+        newSlide = slide - slideIncrementDimension;
         newXPosition = xTilePosition - xPositionIncrement;
       } else {
         // Snap to boundary if the movement would exceed
-        newSlide = maxRightSlide / (xPositionIncrement / slideIncrement);
+        newSlide = maxRightSlide / (xPositionIncrement / slideIncrementDimension);
         newXPosition = maxRightSlide;
       }
     }
@@ -619,7 +621,7 @@ function App() {
     if (value === 'left') {
       // Check if moving left wouldn't exceed the left boundary
       if (xTilePosition + xPositionIncrement <= 0) {
-        newSlide = slide + slideIncrement;
+        newSlide = slide + slideIncrementDimension;
         newXPosition = xTilePosition + xPositionIncrement;
       } else {
         // Snap to boundary if the movement would exceed
@@ -712,18 +714,20 @@ function App() {
               
                   <p className="text-lg text-center ">Exceptional Solar and Battery Performance</p>
                 </div>
-              <div className=" p-8 bg-white h-[18rem] w-[14rem] flex flex-col items-center justify-between ">
-              <div  >
-              <div className="mt-6">
-              <CreditIcon w={50} h={50}/>
+              <div  onMouseEnter={creditMoveEnter} onMouseLeave={creditMoveLeave}  className=" p-8 bg-white h-[18rem] w-[14rem] flex flex-col items-center justify-between ">
+            
+              {/* */}
+              <div   className="mt-6">
+              <CreditIcon ref={creditRef}
+                  w={50} h={50}/>
               </div>
                 
-                </div >
+             
                 <p>Customized Payment Solution For Your Home</p>
               </div>
-              <div className=" p-8 bg-white h-[18rem] w-[14rem] flex flex-col items-center justify-between">
+              <div onMouseEnter={hoverIconEnter} onMouseLeave={hoverIconLeave} className=" p-8 bg-white h-[18rem] w-[14rem] flex flex-col items-center justify-between">
               <div className="mt-6" >
-                <Headphone w={50} h={50}/>
+                <Headphone ref={headRef} w={50} h={50}/>
                 </div>
                 <p>The Solarflare Assurance</p>
                 </div>
@@ -775,17 +779,17 @@ function App() {
         <section ref={(el) => (sectionsRef.current[3] = el)} id="section4" className='sec flex '>
           <div className='w-[50%] h-[100vh] pl-[12rem] py-[6rem] '>
             <div className='w-[22rem] h-[70%]'>
-            <div className='hp'>PLAN & PRICING</div>
+            <h2 className='hp'>PLAN & PRICING</h2>
             <div className='hp text-5xl'>
               <p className=''>Smart Savings.<span>  Easy Living</span></p>
             </div>
-            <div>
-              <p className='hp mt-[5rem]'>From installation to maintenance, enjoy an effortless and affordable solar experience with the Sunrun Plan Solar lease
+            <div className='hp mt-[4rem]'>
+              <p >From installation to maintenance, enjoy an effortless and affordable solar experience with the Sunrun Plan Solar lease
               </p>
             </div>
 
 
-            <ul>
+            <ul className='mt-[1rem]'>
               <li className='hp flex mt-2'>
                 <div><Ribbon/></div>
                 <p className='ml-4'>
@@ -815,14 +819,14 @@ function App() {
               <div><RightArr color={'black'}/></div>
             </div>
           </div>
-          <div onMouseMove={(e)=>moveBg(e)} onMouseLeave={()=>resetBg()} ref={easyRef} style={{backgroundImage: "url('/cell.png')"}} className='w-[50%] h-[100vh] bg-no-repeat bg-cover cell'>
+          <div onMouseMove={(e)=>moveBg(e)} onMouseLeave={()=>resetBg()} ref={easyRef} style={{backgroundImage: `url(${phoneman})`}} className='w-[50%] h-[100vh] bg-no-repeat bg-cover cell'>
            
           </div>
 
         </section>
 
         <section ref={(el) => (sectionsRef.current[4] = el)} id="section5" className='sec flex h-[100vh]'>
-          <div style={{backgroundImage: "Url(fam.png)"}} className='w-[50%] h-[100vh] bg-cover bg-no-repeat'> </div>
+          <div style={{backgroundImage: `url(${maintain})`}} className='w-[50%] h-[100vh] bg-cover bg-no-repeat'> </div>
           <div className='w-[50%] relative overflow-hidden'>
           <div className=' bg-black text-white  h-[100vh] px-[4rem] py-[8rem] ' >
             
@@ -835,7 +839,7 @@ function App() {
             <li><Star/></li>
             </ul>
             <div className='text-4xl mt-8 hp'>
-              it's convenient, we don't have to worry about it. SolarFlare monitor it for us. if anythig happens they will come out and fix it so we like that part.
+            With SolarFlare, everything is taken care of. They monitor the system for us and handle any issues that come up, no stress, no hassle!
             
             </div>
             <div className='text-lg mt-10'>Harly - Litchfield Park, AZ</div>
@@ -915,7 +919,7 @@ function App() {
               <p>NEM 3.0 What is it and how it affects carlifornia</p>
             </div>
             <div>
-              <div style={{backgroundImage:" url('/two.png')"}} className='w-[25rem] bg-no-repeat h-[25rem] bg-cover'>
+              <div style={{backgroundImage:`url(${blog})`}} className='w-[25rem] bg-no-repeat h-[25rem] bg-cover'>
               
               </div>
               <p>
@@ -969,9 +973,7 @@ function App() {
               <li className='mt-2'>Company</li>
               <li className='mt-2'>Investor</li>
             </ul>
-            <div className='mt-[5rem]'>
-              socials
-            </div>
+            
           </div>
           <div className=' p-[4rem] flex justify-between w-[50%]'>
             <div>
@@ -1019,9 +1021,9 @@ function App() {
       
           <div className='flex mt-auto ml-[4rem] justify-between'>
 
-            <div className='flex w-[42%] justify-between '>
-              
-              <div> <span className='mr-4'>ar </span>State of Luosianna</div>
+            <div className='flex w-[42%] justify-between items-center'>
+             
+              <div className='flex '>  <Location/>  <span className='mr-2'></span>State of Luosianna</div>
               <p>&copy; {new Date().getFullYear()} YourCompanyName. All Rights Reserved.</p>
             </div>
 

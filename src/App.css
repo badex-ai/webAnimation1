@@ -13,6 +13,27 @@
   }
 }
 
+/* .creditCard {
+  animation: creditSwipe .4s ease-in-out forwards;
+} */
+
+/* @keyframes creditSwipe {
+  0% {
+    transform: rotate(0deg);
+    transform-origin: bottom left;
+  }
+
+  50% {
+    transform: rotate(-25deg);
+    transform-origin: bottom left;
+  }
+
+  100% {
+    transform: rotate(0deg);
+    transform-origin: bottom left;
+  }
+} */
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -69,6 +90,7 @@
   animation: stroke 0.5s ease-in-out forwards;
 }
 
+
 /* .connect {
   
   stroke-dasharray: 0;
@@ -109,6 +131,7 @@
 
   }
 }
+
 
 .connector {
   transform: translate3d(-34%, 0, 0);

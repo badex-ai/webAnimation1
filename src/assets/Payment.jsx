@@ -12,7 +12,7 @@ const Payment = (props) => (
             fill="none"
             fillRule="evenodd"
             stroke="none"
-            strokeWidth="1"
+            strokeWidth="0.5"
         >
             <g id="ic_fluent_payment_24_regular" fill="#212121" fillRule="nonzero">
                 <path

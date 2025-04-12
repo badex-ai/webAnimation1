@@ -26,13 +26,13 @@ const TextLogo = () => {
         <svg width="100%" height="100%" className="absolute top-0 left-0"> 
           <defs> 
             <radialGradient id="gold-glow" cx="0.5" cy="0.5" r="0.5"> 
-              <stop offset="0%" stopColor="#FFD700" stopOpacity="1" /> 
-              <stop offset="70%" stopColor="#FFD700" stopOpacity="0.7" /> 
-              <stop offset="100%" stopColor="#FFD700" stopOpacity="0" /> 
+              <stop offset="0%" stopColor="#fee71d" stopOpacity="1" /> 
+              <stop offset="70%" stopColor="#fee71d" stopOpacity="0.8" /> 
+              <stop offset="100%" stopColor="#fee71d" stopOpacity="0" /> 
             </radialGradient> 
              
             <filter id="blur-effect" x="-50%" y="-50%" width="200%" height="200%"> 
-              <feGaussianBlur in="SourceGraphic" stdDeviation="6" /> 
+              <feGaussianBlur in="SourceGraphic" stdDeviation="5" /> 
             </filter> 
              
             <clipPath id="text-clip"> 
@@ -80,7 +80,7 @@ const TextLogo = () => {
             <circle  
               cx={position.x}  
               cy={position.y}  
-              r="78"  
+              r="100"  
               fill="url(#gold-glow)"  
               filter="url(#blur-effect)" 
               clipPath="url(#text-clip)" 

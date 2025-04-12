@@ -160,6 +160,55 @@ body {
   to {
     transform: rotate(360deg);
   }
+
+
+}
+
+@keyframes hoverCard {
+  0% {
+    transform: translateX(0);
+  }
+
+  20% {
+    transform: translateX(-2px);
+  }
+
+  40% {
+    transform: translateX(2px);
+  }
+
+  60% {
+    transform: translateX(-2px);
+  }
+
+  80% {
+    transform: translateX(2px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+
+
+}
+
+@keyframes creditSlide {
+
+
+  0% {
+    transform: rotate(0deg);
+    transform-origin: bottom left;
+  }
+
+  50% {
+    transform: rotate(-15deg);
+    transform-origin: bottom left;
+  }
+
+  100% {
+    transform: rotate(0deg);
+    transform-origin: bottom left;
+  }
 }
 
 

@@ -136,7 +136,7 @@ body {
 
 
 .banner {
-  animation: moveBanner 10s linear infinite;
+  animation: moveBanner 2m linear infinite;
 }
 
 @keyframes moveBanner {
@@ -161,6 +161,36 @@ body {
     transform: rotate(360deg);
   }
 }
+
+
+
+
+
+@keyframes swingAnimation {
+
+  /* 0% {
+    transform: rotate(0deg);
+    transform-origin: bottom left;
+  }
+
+  50% {
+    transform: rotate(-25deg);
+    transform-origin: bottom left;
+  }
+
+  100% {
+    transform: rotate(0deg);
+    transform-origin: bottom left;
+  } */
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(-25deg);
+  }
+}
+
 
 
 
