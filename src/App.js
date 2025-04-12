@@ -478,27 +478,27 @@ function App() {
       
   }, [slide])
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    let tile = tileRef.current
+  //   let tile = tileRef.current
       
-         let width = tile.getBoundingClientRect().width - 6
-    if(xTilePosition===0){
-        btn1.current.classList.add('border-gray-400');
-      //  console.log(btn1.current,'this is btn1')
-       setLeftArrColor('gray')
-       setRightArrColor('black')
+  //        let width = tile.getBoundingClientRect().width - 6
+  //   if(xTilePosition===0){
+  //       btn1.current.classList.add('border-gray-400');
+  //     //  console.log(btn1.current,'this is btn1')
+  //      setLeftArrColor('gray')
+  //      setRightArrColor('black')
 
-        btn2.current.classList.remove('border-gray-400');
-    }
+  //       btn2.current.classList.remove('border-gray-400');
+  //   }
 
-    if (window.innerWidth + Math.abs(xTilePosition) === width) {
-        btn2.current.classList.add('border-gray-400');
-        btn1.current.classList.remove('border-gray-400');
-        setRightArrColor('gray')
-        setLeftArrColor('black')
-    }
-  }, [xTilePosition])
+  //   if (window.innerWidth + Math.abs(xTilePosition) === width) {
+  //       btn2.current.classList.add('border-gray-400');
+  //       btn1.current.classList.remove('border-gray-400');
+  //       setRightArrColor('gray')
+  //       setLeftArrColor('black')
+  //   }
+  // }, [xTilePosition])
   
  
 
@@ -509,52 +509,52 @@ function App() {
 
 
 
-  const onMoveTile = (value)=>{
+  // const onMoveTile = (value)=>{
      
-    let tile = tileRef.current
+  //   let tile = tileRef.current
 
-    if(!tile)return
+  //   if(!tile)return
 
    
 
-      let position;
+  //     let position;
      
 
-      if (value == 'right') {
-       let xim =  tile.getBoundingClientRect().x
-       let yim = tile.getBoundingClientRect().right 
-       let width = tile.getBoundingClientRect().width - 6
+  //     if (value == 'right') {
+  //      let xim =  tile.getBoundingClientRect().x
+  //      let yim = tile.getBoundingClientRect().right 
+  //      let width = tile.getBoundingClientRect().width - 6
        
-        if(window.innerWidth + Math.abs(xim) < width   ){
+  //       if(window.innerWidth + Math.abs(xim) < width   ){
          
-          position = slide - 29
-          setSlide(position)
-          setxTilePosition(xTilePosition - 464)
+  //         position = slide - 29
+  //         setSlide(position)
+  //         setxTilePosition(xTilePosition - 464)
 
 
 
-        }else{
-          return
-        }
-      }
+  //       }else{
+  //         return
+  //       }
+  //     }
         
       
-      if (value == 'left') {
+  //     if (value == 'left') {
 
-        if(tile.getBoundingClientRect().x < 0){
-          position = slide + 29
-          setSlide(position)
-          setxTilePosition(xTilePosition + 464)
+  //       if(tile.getBoundingClientRect().x < 0){
+  //         position = slide + 29
+  //         setSlide(position)
+  //         setxTilePosition(xTilePosition + 464)
 
 
 
 
   
-        }else{
-          return
-        }
-      }
-      // && tile.getBoundingClientRect().right + Math.abs(tile.getBoundingClientRect().x) < tile.getBoundingClientRect().width
+  //       }else{
+  //         return
+  //       }
+  //     }
+  //     // && tile.getBoundingClientRect().right + Math.abs(tile.getBoundingClientRect().x) < tile.getBoundingClientRect().width
       
       
     
@@ -562,7 +562,77 @@ function App() {
       
 
   
+  // }
+
+  useEffect(() => {
+    let tile = tileRef.current;
+    if (!tile) return;
+    
+    const tileWidth = tile.getBoundingClientRect().width;
+    const maxRightPosition = -(tileWidth - window.innerWidth);
+    
+    // Check left boundary
+    if (xTilePosition === 0) {
+      btn1.current.classList.add('border-gray-400');
+      setLeftArrColor('gray');
+      setRightArrColor('black');
+      btn2.current.classList.remove('border-gray-400');
+    }
+    
+    // Check right boundary - using approximate equality for floating point comparison
+    if (Math.abs(xTilePosition - maxRightPosition) < 10) {
+      btn2.current.classList.add('border-gray-400');
+      btn1.current.classList.remove('border-gray-400');
+      setRightArrColor('gray');
+      setLeftArrColor('black');
+    }
+  }, [xTilePosition]);
+
+  const onMoveTile = (value) => {
+    let tile = tileRef.current;
+    if (!tile) return;
+    
+    const tileWidth = tile.getBoundingClientRect().width;
+    const tileLeft = tile.getBoundingClientRect().x;
+    const viewportWidth = window.innerWidth;
+    
+    // Calculate maximum allowed slide distance
+    const maxRightSlide = -(tileWidth - viewportWidth);
+    
+    let newSlide = slide;
+    let newXPosition = xTilePosition;
+    const slideIncrement = 29;  //each tile is 29rem
+    const xPositionIncrement = 464;
+    
+    if (value === 'right') {
+      // Check if moving right wouldn't exceed the right boundary
+      if (xTilePosition - xPositionIncrement >= maxRightSlide) {
+        newSlide = slide - slideIncrement;
+        newXPosition = xTilePosition - xPositionIncrement;
+      } else {
+        // Snap to boundary if the movement would exceed
+        newSlide = maxRightSlide / (xPositionIncrement / slideIncrement);
+        newXPosition = maxRightSlide;
+      }
+    }
+    
+    if (value === 'left') {
+      // Check if moving left wouldn't exceed the left boundary
+      if (xTilePosition + xPositionIncrement <= 0) {
+        newSlide = slide + slideIncrement;
+        newXPosition = xTilePosition + xPositionIncrement;
+      } else {
+        // Snap to boundary if the movement would exceed
+        newSlide = 0;
+        newXPosition = 0;
+      }
+    }
+    
+    // Only update if the values actually changed
+    if (newSlide !== slide) setSlide(newSlide);
+    if (newXPosition !== xTilePosition) setxTilePosition(newXPosition);
   }
+  
 
   let arr= [{main: 'What happens if I decide to move?',ext: 'You can very easily take care of it. You can even place a call, we would help with the transportation for a small fee'},{main:'How long do solar panels really last?',ext:'2'},{main:'How much can I expect to save when I go solar?',ext:'3'},{main:'Does my state offer incentives to go solar?',ext:'4'},{main:'How many solar panels will my home need?',ext: '5'},{main:'Is my home good for solar?',ext:'6'}]
 
@@ -975,3 +1045,8 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
